@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            const socials = [
+                {id: 1,name: 'facebook', url: 'http://www.facebook.com'},
+                {id: 2,name: 'Google',url: 'http://www.google.com'}
+            ]
+
+            const ele = (
+                <ul>
+                    {
+                        socials.map(function(social){
+                            return <li><a href = {social.url} target = "_blank"> {social.name} </a></li>
+                        })
+                    }
+                    
+                </ul>
+            )
+            ReactDOM.render(ele,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

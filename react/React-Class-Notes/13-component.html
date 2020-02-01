@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            const employees = [
+                { id: 1, name: 'john', gender: 'male', department: 'tech' },
+                { id: 2, name: 'donna', gender: 'female', department: 'tech' },
+                { id: 3, name: 'sam', gender: 'male', department: 'finance' },
+                { id: 4, name: 'michelle', gender: 'female', department: 'finance' }
+            ]
+            /* function component or component or presentation component - follows 3 rules
+                1. function name must start with captial letter (camelCased)
+                2. function must take one parameter named 'props'
+                3. function must return a react element
+
+                When you create a function component you bascally create a user defined tag or element
+                The attributes you mention for that tag will be passed as on object to 'props' as it is an 
+                object argument
+            */
+
+            function EmployeesList(props){
+                return (
+                    <div>
+                        <h4>{props.title}</h4>
+                        <ul>
+                            {props.employee}
+                        </ul>
+                    </div>
+                )
+            }
+
+            const maleEmployee = employees.filter(employee => employee.gender == 'male').map(maleEmployee => <li key = {maleEmployee.id}>{maleEmployee.name}</li>)
+
+            const femaleEmployee = employees.filter(employee => employee.gender == 'female').map(femaleEmployee => <li key = {femaleEmployee.id}>{femaleEmployee.name}</li>)
+
+            const techEmployee = employees.filter(employee => employee.department == 'tech').map(techEmployee => <li key = {techEmployee.id}>{techEmployee.name}</li>)
+
+            const financeEmployee = employees.filter(employee => employee.department == 'finance').map(financeEmployee => <li key = {financeEmployee.id}>{financeEmployee.name}</li>)
+            
+            const ele = (
+                <div>
+                        <h1>DashBoard</h1>
+
+                        <h3>Gender Ratio</h3>
+
+                        {/* EmployeesList({employee: maleEmployee, title: "Male"}) */}
+
+                        {/* EmployeesList({employee: femaleEmployee, title: "Female"}) */}
+
+                        <EmployeesList employee = {maleEmployee} title = "Male" ></EmployeesList>
+
+                        <EmployeesList employee = {femaleEmployee} title = "Female" ></EmployeesList>
+
+                        <h3>Department Wise</h3>
+
+                        {/* EmployeesList({employee: techEmployee, title: "Tech"}) */}
+
+                        {/* EmployeesList({employee: financeEmployee, title: "Finance"}) */}
+
+                        <EmployeesList employee = {techEmployee} title = "Tech" ></EmployeesList>
+
+                        <EmployeesList employee = {financeEmployee} title = "Finance" ></EmployeesList>
+
+                </div>
+            )
+            ReactDOM.render(ele,rootHandle)
+
+        </script>
+    
+    </body>
+        
+</html>

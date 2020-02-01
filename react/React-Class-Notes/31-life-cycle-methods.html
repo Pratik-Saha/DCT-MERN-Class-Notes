@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class UsersList extends React.Component{
+                constructor(){
+                    console.log('constructor')
+                    super()
+                    this.state = {
+                        users: [],
+                        count: 0
+                    }
+                }
+                //after constructor call and before 1st render - deprecated
+                // componentWillMount(){
+                //     console.log('component will mount')
+                // }
+                //after 1st render - only once
+                componentDidMount(){
+                    console.log('component will mount')
+                }
+                handleClick = (e) => {
+                    console.log('handle click event')
+                    this.setState((prevState) => {
+                       return  {count: prevState.count + 1}
+                    })
+                }
+                //for the 1st time get called automtically - part of life cycle
+                render(){
+                    console.log('render')
+                    return (
+                        <div>
+                            <h1>Count - {this.state.count}</h1>
+                            <button onClick = {this.handleClick}> + </button>
+                            <h2>Listing users - {this.state.users.length}</h2>
+                        </div>
+                    )
+                }
+            }
+            ReactDOM.render(<UsersList />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

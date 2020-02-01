@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            const user = {
+                username: 'user1',
+                isAdmin: true
+                //roles: ['moderator','student']
+            }
+            //const ele = <p>some text {user.isAdmin ? <button>remove</button> : ''}</p>
+            /*use logical and operator for conditional rendering instead of ternary operator*/
+            const ele = <p>some text {user.isAdmin && <button>remove</button>}</p>
+            // const ele = (
+            //     <div>
+            //         <p>edit something {user.roles.incldes('moderator') && <button>edit</button>}</p>
+            //         <p>delete something {user.roles.incldes('admin') && <button>delete</button>}</p>
+            //     </div>
+            // )
+
+            ReactDOM.render(ele,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

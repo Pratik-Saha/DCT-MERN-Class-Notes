@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body style="text-align: center;">
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "../js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "../js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "../js/babel.js"></script>
+        <!-- https://unpkg.com/axios/dist/axios.js -->
+        <script src = "../js/axios.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class PersistForm extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        title: sessionStorage.title ? sessionStorage.title : '',
+                        body: sessionStorage.body ? sessionStorage.body : ''
+                    }
+                    console.log(this.state)
+                }
+                handleChange = (e) => {
+                    sessionStorage.setItem([e.target.name],e.target.value)
+                    console.log(sessionStorage)
+                    this.setState({
+                        [e.target.name]: e.target.value
+                    })
+                }
+
+                handleReload = (e) => {
+                    window.location.reload()
+                }
+
+                render(){
+                    return(
+                        <div>
+                            <h1>Story Book</h1><hr />
+                            <form>
+                                <label htmlFor = "title">Title</label>
+                                <input type = "text" id = "title" value = {this.state.title} name = "title" onChange = {this.handleChange} />
+                                <br />
+                                <label htmlFor = "body">Body</label>
+                                <textarea id = "body" value = {this.state.body} name = "body" onChange = {this.handleChange} ></textarea>
+                                <br />
+                                <input type = "button" value = "Reload" onClick = {this.handleReload} />
+                            </form>
+                        </div>
+                    )
+                }
+            }
+            ReactDOM.render(<PersistForm />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

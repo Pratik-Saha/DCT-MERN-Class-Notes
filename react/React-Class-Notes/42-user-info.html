@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <!-- https://unpkg.com/axios/dist/axios.js -->
+        <script src = "./js/axios.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class App extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        user: {}
+                    }
+                }
+
+                handleUser = (user) => {
+                   this.setState({user})
+                }
+
+                render(){
+                    return (
+                        <div>
+                            <UserForm handleUser = {this.handleUser}/>
+                            <Display user = {this.state.user}/>
+                        </div>
+                    )
+                }
+            }
+
+            class UserForm extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        id: ''
+                    }
+                }
+                
+                handleChange = (e) => {
+                    this.setState({id: e.target.value})
+                }
+
+                handleSubmit = (e) => {
+                    e.preventDefault()
+                    axios.get(`http://jsonplaceholder.typicode.com/users/${this.state.id}`)
+                        .then((response) => {
+                            const user = response.data
+                            this.props.handleUser(user)
+                        })
+                        .catch((err) => {
+                            alert(err)
+                        })
+                }
+                
+                render(){
+                    return (
+                        <div>
+                            <form onSubmit = {this.handleSubmit}>
+                                <input type = "text" value = {this.state.id} onChange = {this.handleChange}/>
+                                <input type = "submit" />
+                            </form>
+                        </div>
+                    )
+                }
+            }
+
+            function Display(props){
+                return (
+                    <div>
+                        <h3>User Details</h3>
+                        <p>{props.user.id} - {props.user.name} - {props.user.email} -
+                            {Object.keys(props.user).length == 0 ? '' : props.user.address.city }
+                        </p>
+                    </div>
+                )
+            }
+            ReactDOM.render(<App />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <!-- https://unpkg.com/axios/dist/axios.js -->
+        <script src = "./js/axios.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class App extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        users: [
+                            {id: 1, name: 'arun'},
+                            {id: 2, name: 'arjun'},
+                            {id: 3, name: 'deepa'}
+                        ]
+                    }
+                }
+
+                handleRemove = (id) => {
+                    console.log(id)
+                    this.setState((prevState) => {
+                        return {
+                            users: prevState.users.filter(user => user.id != id)
+                        }
+                    })
+                }
+
+                render(){
+                    return (
+                        <div>
+                            <UserTable users = {this.state.users} handleRemove = {this.handleRemove} /> 
+                            <UserList  users = {this.state.users} handleRemove = {this.handleRemove}/>  
+                        </div>
+                    )
+                }
+            }
+
+            function UserTable(props){
+                return (
+                    <div>
+                        <h4>Listing Users In Grid View - {props.users.length}</h4>
+                        <table border = "1">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                props.users.map((user) => {
+                                    return (
+                                        <tr key = {user.id}>
+                                            <td>{user.id}</td>
+                                            <td>{user.name}</td>
+                                            <td><button onClick = {() => {
+                                                props.handleRemove(user.id)
+                                            }}>Remove</button></td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
+                    </div>
+                )
+            }
+
+            function UserList(props){
+                return(
+                    <div>
+                        <h4>Listing Users In List View - {props.users.length}</h4>
+                        <ul>
+                        {
+                            props.users.map((user) => {
+                                return (
+                                    <li key = {user.id}> {user.name}
+                                        <button onClick = {() => {
+                                            props.handleRemove(user.id)
+                                        }}>Remove</button>
+                                    </li>
+                                )
+                            })
+                        }
+                        </ul>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<App />,rootHandle)
+        </script>
+
+    </body>
+        
+</html>

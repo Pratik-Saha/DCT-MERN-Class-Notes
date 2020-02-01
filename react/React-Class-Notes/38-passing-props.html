@@ -1,0 +1,44 @@
+<!-- state is where you maintain the data, props is where you pass the data -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <!-- https://unpkg.com/axios/dist/axios.js -->
+        <script src = "./js/axios.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            function Parent(props){ //passing data from parent via props
+                return (
+                    <div>
+                        <h1>parent component</h1>
+                        <Child name = "karan" /> 
+                        <Child name = "arjun" />
+                    </div>
+                )
+            }
+            function Child(props){
+                return (
+                    <div>
+                        <h2>child component - {props.name}</h2>
+                    </div>
+                )
+            }
+            ReactDOM.render(<Parent />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

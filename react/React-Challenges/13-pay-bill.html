@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body style="text-align: center;">
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "../js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "../js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "../js/babel.js"></script>
+        <!-- https://unpkg.com/axios/dist/axios.js -->
+        <script src = "../js/axios.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class PayBill extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        networkProvider: 'vodafone'
+                    }
+                }
+                handleChange = (e) => {
+                    const networkProvider = e.target.value
+                    this.setState({networkProvider})
+                }
+                render(){
+                    return (
+                        <div>
+                            <h1>Pay bill for {this.state.networkProvider}</h1><hr />
+
+                            <input type="radio" name="provider" value="vodafone" onChange = {this.handleChange} defaultChecked/> vodafone
+                            <input type="radio" name="provider" value="airtel" onChange = {this.handleChange} /> airtel
+                            <input type="radio" name="provider" value="jio" onChange = {this.handleChange} /> jio <br /><br />
+
+                            <input type = "text" placeholder = {`enter your ${this.state.networkProvider} number`}/>
+                            <input type = "submit" />
+                        </div>
+                    )
+                }
+            }
+
+            ReactDOM.render(<PayBill />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

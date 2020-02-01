@@ -1,0 +1,61 @@
+<!-- we cannot call setState method from the child component to update the state of parent.
+the setState method will reside where the state resides i.e, in parent only
+but what we can do , we can pass the setstate as a prop to the child -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <!-- https://unpkg.com/axios/dist/axios.js -->
+        <script src = "./js/axios.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class Counter extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        count : 0
+                    }
+                }
+                handleClick = () => {
+                    this.setState((prevState) => {
+                        return {
+                            count: prevState.count + 1
+                        }
+                    })
+                }
+
+                render(){
+                    console.log('counter render')
+                    return(
+                        <div>
+                            <h1>{this.state.count}</h1>
+                            <Btn handleClick = {this.handleClick} text = "up" />
+                        </div>
+                    )
+                }
+            }
+
+            function Btn(props){
+                console.log('child render')
+                return <button onClick = {props.handleClick}></button>
+            }
+
+            ReactDOM.render(<Counter />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

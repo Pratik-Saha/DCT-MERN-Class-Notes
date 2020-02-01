@@ -1,0 +1,89 @@
+<!-- raffel -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body style="text-align: center;">
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "../js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "../js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "../js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class DrawUser extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        name: '',
+                        users : ['Sam','John','karan','chetan']
+                    }
+                }
+
+                handleDraw = (index) => {
+                    this.setState((prevState) => {
+                        return {
+                            name: prevState.users[index],
+                            users: prevState.users.filter((user,i) => {
+                                return user != prevState.users[index]
+                            })
+                        }
+                    })
+                }
+
+                render(){
+                    if(this.state.users.length > 0){
+                        return (
+                            <div>
+                            <h1>{this.state.name}</h1>
+                            <h3>Users</h3>
+
+                            <table border = "1" align = "center">
+                                <thead>
+                                    
+                                </thead>
+                                <tbody>
+                                    {
+                                        this.state.users.map((user,i) => {
+                                            return (
+                                                <tr key = {i}>
+                                                    <td>{user}</td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                            <button onClick = {() => {
+                                this.handleDraw(Math.floor(Math.random() * this.state.users.length))
+                            }}>DRAW</button>
+                            </div>
+                        )
+                    }
+                    else{
+                        return (
+                            <div>
+                                <h1>{this.state.name}</h1>
+                                <h3>Users</h3>
+                                <h4> No Users To Show </h4>
+                                <button disabled>DRAW</button>
+                            </div>
+                        )
+                    }
+                    
+                }
+            }
+
+            ReactDOM.render(<DrawUser />, rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

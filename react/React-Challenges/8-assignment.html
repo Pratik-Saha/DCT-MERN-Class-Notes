@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "../js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "../js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "../js/babel.js"></script>
+        <!-- https://unpkg.com/axios/dist/axios.js -->
+        <script src = "../js/axios.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class PrintOneByOne extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        message: 'This is a text',
+                        messageArr: [],
+                        counter: 0
+                    }
+                }
+
+                componentDidMount(){
+                    const messageArr = this.state.message.split('')
+                    const printInterval = setInterval(() => {
+                        if(this.state.counter < messageArr.length){
+                            this.setState((prevState) => {
+                                return {
+                                    messageArr: prevState.messageArr.concat(messageArr[prevState.counter]),
+                                    counter: prevState.counter + 1
+                                } 
+                            })
+                        }
+                        else{
+                            clearInterval(printInterval)
+                        }
+                    },1000)
+                }
+
+                render(){
+                    return (
+                        <h4>{this.state.messageArr.join('')}</h4>
+                    )
+                }
+
+                
+            }
+
+            ReactDOM.render(<PrintOneByOne />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

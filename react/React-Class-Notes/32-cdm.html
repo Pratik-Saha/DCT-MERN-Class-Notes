@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class UsersList extends React.Component{
+                constructor(){
+                    console.log('constructor')
+                    super()
+                    this.state = {
+                        users: [],
+                        count: 0,
+                        isLoading : true
+                    }
+                }
+                
+                componentDidMount(){
+                    console.log('component did mount')
+                    // const xhr = new XMLHttpRequest()
+                    // xhr.open('GET','http://jsonplaceholder.typicode.com/users')
+                    // xhr.send()
+                    // xhr.onload = () => {
+                    //     const users = JSON.parse(xhr.responseText)
+                    //     this.setState({users, isLoading: false})
+                    // }
+                    fetch('http://jsonplaceholder.typicode.com/users')
+                        .then((response) => {
+                            return response.json()
+                        })
+                        .then((result) => {
+                            this.setState({users: result, isLoading: false})
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        })
+                }
+                
+                render(){
+                    console.log('render')
+                    return (
+                        <div>
+                            {
+                                this.state.isLoading ? <p>Loading...</p> : (
+                                    <div>
+                                        <h2>Listing users - {this.state.users.length}</h2>
+                                        <ul>
+                                            {
+                                                this.state.users.map((user,i) => {
+                                                    return <li key = {i}>{user.name}</li>
+                                                })
+                                            }
+                                        </ul>
+                                    </div>
+                                )
+                            }
+                            
+                        </div>
+                    )
+                }
+            }
+            ReactDOM.render(<UsersList />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

@@ -1,0 +1,58 @@
+<!-- make a new copy -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "../js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "../js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "../js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+            
+            class GenerateNode extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        arr: [
+                            {id: Date.now() + Math.floor(Math.random() * 100),value: 'test node'},
+                            {id: Date.now() + Math.floor(Math.random() * 100), value:'this is bangalore'}
+                        ]
+                    }
+                }
+
+                handleClick = (item) => {
+                    const obj = {id: Date.now() + Math.floor(Math.random() * 100), value: item.value}
+                    this.setState((prevState) => {
+                        return {
+                            arr: prevState.arr.concat(obj)
+                        }
+                    })
+                }
+
+                render(){
+                    return (
+                        this.state.arr.map((item,i) => {
+                            return (
+                                <div key = {i}>
+                                <h5 >{item.value}<button id = {item.id} onClick = {() => {this.handleClick(item)}}>make a copy</button></h5>
+                                </div>
+                            )
+                        }) 
+                    )
+                }
+            } 
+            ReactDOM.render(<GenerateNode />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

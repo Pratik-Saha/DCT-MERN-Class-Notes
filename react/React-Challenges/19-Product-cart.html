@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "../js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "../js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "../js/babel.js"></script>
+        <!-- https://unpkg.com/axios/dist/axios.js -->
+        <script src = "../js/axios.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class App extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        products: [
+                            {id: 1,name: "marker",price: 10},
+                            {id: 2,name: "scale",price: 5}
+                        ],
+                        orderItems: []
+                    }
+                }
+                handleAdd2cart = (productId) => {
+                    const searchItem = this.state.orderItems.find((orderItem) => {
+                        return orderItem.productId == productId
+                    })
+                    if(!searchItem){
+                        const item = this.state.products.find((product) => {
+                            return product.id == productId
+                        })
+                        let orderItem = {
+                            id: this.state.orderItems.length + 1,
+                            productId: item.id,
+                            name: item.name,
+                            price: item.price,
+                            quantity: 1
+                        }
+                        this.setState((prevState) => {
+                            return{
+                                orderItems: prevState.orderItems.concat(orderItem)
+                            }
+                        })
+                    }
+                    else{
+                        searchItem.quantity += 1;
+                        this.setState((prevState) => {
+                            return {
+                                orderItems: prevState.orderItems
+                            }
+                        })
+                    }
+                }
+
+                handleUp = (pId) => {
+                    const orderItem = this.state.orderItems.find((orderItem) => {
+                        return orderItem.productId == pId
+                    })
+                    orderItem.quantity += 1
+                    this.setState((prevState) => {
+                        return{
+                            orderItems: prevState.orderItems
+                        }
+                    })
+                }
+                handleDown = (pId) => {
+                    const orderItem = this.state.orderItems.find((orderItem) => {
+                        return orderItem.productId == pId
+                    })
+                    orderItem.quantity -= 1
+                    this.setState((prevState) => {
+                        return{
+                            orderItems: prevState.orderItems
+                        }
+                    })
+                }
+                render(){
+                    return(
+                        <div>
+                            <Products products = {this.state.products} handleAdd2cart = {this.handleAdd2cart}/>
+                            <Orders orderItems = {this.state.orderItems} handleUp = {this.handleUp} handleDown = {this.handleDown} />
+
+                        </div>
+                    )
+                }
+            }
+
+            function Products(props){
+                return(
+                    <div className = "container">
+                        <h2>Listing Products - {props.products.length}</h2>
+                        <table className="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                props.products.map(function(product){
+                                    return (
+                                        <tr key = {product.id}>
+                                            <td>{product.id}</td>
+                                            <td>{product.name}</td>
+                                            <td>{product.price}</td>
+                                            <td><button className="btn btn-primary" onClick = {() => {
+                                                props.handleAdd2cart(product.id)
+                                            }}>ADD</button></td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
+                    </div>
+                )
+            }
+
+            function Orders(props){
+                let total = 0;
+                return(
+                    <div className = "container">
+                        <h2>Listing Orders - {props.orderItems.length}</h2>
+                        <table className="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                props.orderItems.map(function(orderItem){
+                                    total = total + orderItem.quantity * orderItem.price
+                                    return (
+                                        <tr key = {orderItem.id}>
+                                            <td>{orderItem.id}</td>
+                                            <td>{orderItem.name}</td>
+                                            <td>{orderItem.price}</td>
+                                            <td><button className="btn btn-success" onClick = {() => {
+                                                props.handleUp(orderItem.productId)
+                                            }}> + </button> {orderItem.quantity} <button className="btn btn-danger" onClick = {() => {
+                                                props.handleDown(orderItem.productId)
+                                            }} disabled = {orderItem.quantity == 0}> - </button></td>
+                                            <td>{orderItem.quantity * orderItem.price}</td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
+                    <h3>Total Price - {total}</h3>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<App />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

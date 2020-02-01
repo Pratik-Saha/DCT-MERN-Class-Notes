@@ -1,0 +1,95 @@
+<!-- List view & Grid view -->
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+
+        <script src = "../js/react.development.js"></script>
+        <script src = "../js/react-dom.development.js"></script>
+        <script src = "../js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+            class GenerateRandom extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                       currentView : 'list',
+                       users: [
+                           {id: 1, name: 'pratik', email: 'pratik@gmail.com'},
+                           {id: 2, name: 'sachin', email: 'sachin@gmail.com'},
+                           {id: 3, name: 'dhoni', email: 'dhoni@gmail.com'}
+                       ]
+                    }
+                }
+                handleListView = (users) => {
+                    this.setState({currentView: 'list', users: users})
+                }
+                handleGridView = (users) => {
+                    this.setState({currentView: 'Grid', users: users})
+                }
+
+                ListView = (props) => {
+                    return (
+                        <ul>
+                            {
+                                props.users.map(function(user,i){
+                                    return <li key = {i}>{user.name} - {user.email}</li>
+                                })
+                            }
+                        </ul>
+                    )
+                }
+
+                GridView = (props) => {
+                    return (
+                        <table border= "1">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    props.users.map(function(user,i){
+                                        return (
+                                            <tr key = {i}>
+                                                <td>{user.id}</td>
+                                                <td>{user.name}</td>
+                                                <td>{user.email}</td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </table>
+                    )
+                }
+                render(){
+                    return (
+                        <div>
+                            <input type="radio" name="view" value="list" id = "radio1" onChange = {() => {
+                                this.handleListView(this.state.users)
+                            }} defaultChecked /> List View
+
+                            <input type="radio" name="view" value="grid" id = "radio2"  onChange = {() => {
+                                this.handleGridView(this.state.users)
+                            }}/> Grid view <br />
+
+                            {
+                               this.state.currentView == 'list' ? this.ListView(this.state) : this.GridView(this.state)
+                                 
+                            }
+                        </div>
+                    )
+                } 
+            }
+            ReactDOM.render(<GenerateRandom />,rootHandle)
+        </script>
+    </body>
+</html>

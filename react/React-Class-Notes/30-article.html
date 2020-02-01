@@ -1,0 +1,84 @@
+<!-- when ever you make one event handler for all the input fields introduce a new prop called name whose
+value will be the respective prop maintained inside the state -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class ArticleForm extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        text: '',
+                        textBody: '',
+                        publishedDate: ''
+                    }
+                }
+
+                // handleTitleChange = (e) => {
+                //     const text= e.target.value
+                //     this.setState({text})
+                // }
+                // handleBodyChange = (e) => {
+                //     const textBody= e.target.value
+                //     this.setState({textBody})
+                // }
+                // handleDateChange = (e) => {
+                //     const publishedDate= e.target.value
+                //     this.setState({publishedDate})
+                // }
+
+                handleChange = (e) => {
+                    this.setState({
+                        [e.target.name] : e.target.value
+                    })
+                }
+                handleSubmit = (e) => {
+                    e.preventDefault()
+                    const formData = {
+                        title : this.state.text,
+                        body: this.state.textBody,
+                        publishedDate: this.state.publishedDate
+                    }
+                    console.log(formData)
+                }
+                render(){
+                    return (
+                        <div>
+                            <form onSubmit = {this.handleSubmit}>
+                                <label htmlFor = "title">Title</label>
+                                <input type = "text" id = "title" value = {this.state.text} name = "text" onChange = {this.handleChange} /><br/>
+
+                                <label>Body</label>
+                                <textarea value = {this.state.textBody} name = "textBody" onChange = {this.handleChange} ></textarea><br/>
+
+                                <label>Published date</label>
+                                <input type = "date" value = {this.state.publishedDate} name = "publishedDate" onChange = {this.handleChange}/><br/>
+
+                                <input type ="submit"  />
+                            </form>
+                        </div>
+                    )
+                }
+            }
+
+            ReactDOM.render(<ArticleForm />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

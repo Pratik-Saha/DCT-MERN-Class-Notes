@@ -1,0 +1,66 @@
+<!-- 1,2,3,4.7,8,12 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hello React</title>
+</head>
+
+<body>
+    <div id="root">
+
+    </div>
+
+    <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+    <script src="./js/react.development.js"></script>
+    <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+    <script src="./js/react-dom.development.js"></script>
+    <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+    <script src="./js/babel.js"></script>
+    <script type="text/babel">
+        const rootHandle = document.getElementById('root')
+
+        const employees = [
+            { id: 1, name: 'john', gender: 'male', department: 'tech' },
+            { id: 2, name: 'donna', gender: 'female', department: 'tech' },
+            { id: 3, name: 'sam', gender: 'male', department: 'finance' },
+            { id: 4, name: 'michelle', gender: 'female', department: 'finance' }
+        ]
+
+        const ele = (
+            <div>
+                <h1>DashBoard</h1>
+
+                <h3>Gender Ratio</h3>
+
+                <h4>Male</h4>
+                <ul>
+                    {employees.filter(employee => employee.gender == 'male').map(maleEmployee => <li key = {maleEmployee.id}> {maleEmployee.name} </li>)}
+                </ul>
+
+                <h4>Female</h4>
+                <ul>
+                    {employees.filter(employee => employee.gender == 'female').map(femaleEmployee => <li key = {femaleEmployee.id}> {femaleEmployee.name} </li>)}
+                </ul>
+
+                <h3>Department Wise</h3>
+
+                <h4>Tech</h4>
+                <ul>
+                    {employees.filter(employee => employee.department == 'tech').map(techEmployee => <li key = {techEmployee.id}> {techEmployee.name} </li>)}
+                </ul>
+
+                <h4>Finance</h4>
+                <ul>
+                    {employees.filter(employee => employee.department == 'finance').map(financeEmployee => <li key = {financeEmployee.id}> {financeEmployee.name} </li>)}
+                </ul>
+
+            </div>
+        )
+        ReactDOM.render(ele,rootHandle)
+
+    </script>
+
+</body>
+
+</html>

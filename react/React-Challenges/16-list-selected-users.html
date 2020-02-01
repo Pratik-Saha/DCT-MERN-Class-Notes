@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "../js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "../js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "../js/babel.js"></script>
+        <!-- https://unpkg.com/axios/dist/axios.js -->
+        <script src = "../js/axios.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class ShowUserDetails extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        users: [
+                            {id: 1, name: 'Dhoni', department: 'Keeper Batsman',isChecked: false},
+                            {id: 2, name: 'Virat', department: 'Captain Batsman',isChecked: false},
+                            {id: 3, name: 'Rohit', department: 'Vice Captain Batsman',isChecked: false},
+                            {id: 4, name: 'Jadeja', department: 'All Rounder',isChecked: false}
+                        ]
+                    }
+                }
+
+                handleChange = (id) => {
+                    this.setState((prevState) => {
+                        return {
+                                users: prevState.users.map((user) => {
+                                if(user.id == id){
+                                    return Object.assign({},user,{isChecked: !user.isChecked})
+                                }
+                                else{
+                                    return Object.assign({},user)
+                                }
+                            })
+                        }
+                    })
+                }
+
+                render(){
+                    return (
+                        <div>
+                            <h3>Lising Users - {this.state.users.length}</h3>
+                            <table border = "1">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Department</th>
+                                        <th>Select</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        this.state.users.map((user) => {
+                                            return (
+                                                <tr key = {user.id}>
+                                                    <td>{user.id}</td>
+                                                    <td>{user.name}</td>
+                                                    <td>{user.department}</td>
+                                                    <td><input type = "checkbox" checked = {user.isChecked} onChange = {() => {
+                                                        this.handleChange(user.id)
+                                                    }} /></td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                            <h3>Selected Users</h3>
+                            <ul>
+                            {
+                                this.state.users.map((user) => {
+                                    return (
+                                       user.isChecked && <li key = {user.id}>{user.id} - {user.name} - {user.department}</li>
+                                    )
+                                })
+                            }
+                            </ul>
+                        </div>
+                    )
+                }
+            }
+            ReactDOM.render(<ShowUserDetails />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

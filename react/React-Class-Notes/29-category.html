@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class SelectForm extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        categories: [
+                            {id: 1,name: 'sports'},
+                            {id: 2,name: 'gardening'},
+                            {id: 3,name: 'grocery'},
+                            {id: 4,name: 'office furniture'}
+                        ],
+                        selectedCategory: ''
+                    }
+                }
+
+                handleChange = (e) => {
+                    //console.log(e.target.value)
+                    const selectedCategory = e.target.value
+                    this.setState({selectedCategory})
+                }
+
+                render(){
+                    return (
+                        <div>
+                            <h2>Add Product</h2>
+                            <label>category</label>
+                            <select value = {this.state.selectedCategory} onChange = {this.handleChange}>
+                                <option value = "">select</option>
+                                {
+                                    this.state.categories.map((category) => {
+                                        return <option key = {category.id} value = {category.id}>{category.name}</option>
+                                    })
+                                }
+                            </select>
+                        </div>
+                    )
+                }
+            }
+            ReactDOM.render(<SelectForm />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>
+
+<!-- checkbox list user by selcting checkbox 4
+    show user id and list from dropdown 1
+    strike the selected one by selecting checkbox 3
+    change backgroud color according to color by  2-->

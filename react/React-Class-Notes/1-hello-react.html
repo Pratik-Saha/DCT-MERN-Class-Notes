@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <script>
+            const rootHandle = document.getElementById('root')
+            // const h1Tag = document.createElement('h1')
+            // h1Tag.setAttribute('id','heading')
+            // h1Tag.innerHTML = 'Hello React'
+            // rootHandle.appendChild(h1Tag)
+
+            const ele = React.createElement('h1', {id: 'heading'}, 'Hello React')
+
+            ReactDOM.render(ele, rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

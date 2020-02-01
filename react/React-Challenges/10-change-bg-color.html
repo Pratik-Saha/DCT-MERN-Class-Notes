@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "../js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "../js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "../js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class ChangeBgColor extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        colors: ['red','green','blue','yellow'],
+                        selectedColor: ''
+                    }
+                }
+
+                handleChange = (e) => {
+                    const selectedColor = e.target.value
+                    this.setState({selectedColor})
+                }
+
+                setBgColor = (color) => {
+                    document.body.style.backgroundColor = color
+                }
+
+                render(){
+                    return (
+                        <div>
+                            <select value = {this.state.selectedColor} onChange = {this.handleChange}>
+                                <option value = "">select</option>
+                                {
+                                    this.state.colors.map((color,i) => {
+                                        return <option key={i} value = {color}>{color}</option>
+                                    })
+                                }
+                            </select>
+                            {
+                                this.state.selectedColor ? this.setBgColor(this.state.selectedColor) : this.setBgColor("white")
+                            }
+                        </div>
+                    )
+                }
+            }
+            ReactDOM.render(<ChangeBgColor />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

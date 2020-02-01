@@ -1,0 +1,89 @@
+<!-- inside instance method written in short hand this refers to current obj
+inside arrow function this refers to current obj
+inside eventhandler written as arrow function this refers to current obj 
+inside eventhandler written in short hand this is undefined, in this we need to bind this either in constructor or at the time of invokation  -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <!-- https://unpkg.com/axios/dist/axios.js -->
+        <script src = "./js/axios.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class Counter extends React.Component {
+                constructor(){
+                    super()
+                    this.state = {
+                        count : 0
+                    }
+                    this.handleClick = this.handleClick.bind(this)
+                }
+
+                //instance method
+                showCount(){
+                    console.log(this) // current object
+                }
+
+                showCountAgain = () => {
+                    console.log(this) //current object
+                    return this.state.count
+                }
+
+                handleClick(){
+                    console.log(this) //if not bound , this is undefined, if bound this is current object
+                    // this.setState((prevState) => {
+                    //     return {
+                    //         count: prevState.count + 1
+                    //     }
+                    // })
+                }
+
+                handleDown = () => {
+                    console.log(this) //current object
+                    
+                }
+
+                //an instance method can also return jsx
+                showJSX(){
+                    return (
+                        <em>this is jsx</em>
+                    )
+                } 
+
+                render(){
+                    //common operation is to extract the values  from state prop into variables
+                    console.log(this)
+                    const { count } = this.state
+                    return (
+                        <div>
+                            <h1>{this.showCount()}</h1>
+                            <h2>{this.showCountAgain()}</h2>
+                            <h3>{ count }</h3>
+                            {this.showJSX()}
+                            <button onClick = {this.handleClick}>up</button>
+                            <button onClick = {this.handleDown}>down</button>
+
+                            <button onClick = {this.handleClick}>increment</button>
+                        </div>
+                    )
+                }
+            }
+            ReactDOM.render(<Counter />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

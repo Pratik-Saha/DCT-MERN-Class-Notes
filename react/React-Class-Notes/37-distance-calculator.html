@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <!-- https://unpkg.com/axios/dist/axios.js -->
+        <script src = "./js/axios.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class CalculateDistance extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        kms: 0.00,
+                        miles: 0
+                    }
+                }
+                handleChange = (e) => {
+                    const miles = e.target.value
+                    const kms = (miles * 1.6).toFixed(2)
+                    this.setState({kms,miles})
+                }
+                render(){
+                    return(
+                        <div>
+                            <h1>Distance Calculator</h1>
+                            <h1>kms - {this.state.kms}</h1>
+                            <h1>miles -{this.state.miles}</h1>
+                            <input type = "range" value = {this.state.miles} min = "0" max = "100" onChange ={this.handleChange} />
+                        </div>
+                    )
+                }
+            }
+            ReactDOM.render(<CalculateDistance />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

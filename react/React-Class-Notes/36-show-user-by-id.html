@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <!-- https://unpkg.com/axios/dist/axios.js -->
+        <script src = "./js/axios.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class ShowUser extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        user: {},
+                        searchKey: ''
+                    }
+                }
+
+                handleChange = (e) => {
+                    const searchKey = e.target.value
+                    this.setState({searchKey})
+                }
+
+                handleSubmit = (e) => {
+                    e.preventDefault()
+                    axios.get('http://jsonplaceholder.typicode.com/users/'+this.state.searchKey)
+                    .then((response) => {
+                        const user = response.data
+                        console.log(user)
+                        this.setState({user})
+                    })
+                    .catch((err) => {
+                        alert(err)
+                    })
+                }
+
+                render(){
+                    return (
+                        <div>
+                            <h1>Get user info</h1>
+                            <form onSubmit = {this.handleSubmit}>
+                                <input type = "text" value = {this.state.searchKey} onChange = {this.handleChange} />
+                                <input type = "submit" />
+                            </form>
+                            <h3>user details</h3>
+                            <p>{this.state.user.id} - {this.state.user.name} - {this.state.user.email} -
+                            {Object.keys(this.state.user).length == 0 ? '' : this.state.user.address.city }</p>
+                        </div>
+                    )
+                }
+                
+            }
+            ReactDOM.render(<ShowUser />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class UpperCase extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        text : ''
+                    }
+                }
+                
+
+                handleChange = (e) => {
+                    const text = e.target.value.toUpperCase()
+                    this.setState({text})
+                }
+
+                render(){
+                    return (
+                        <div>
+                            <h1>Text without Vowels</h1>
+                            <h3>{this.state.vowelText}</h3>
+                            <form>
+                                <textarea rows="7" cols="50" value = {this.state.text} onChange = {this.handleChange}></textarea>
+                            </form>
+                        </div>
+                    )
+                }
+            }
+            ReactDOM.render(<UpperCase />, rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

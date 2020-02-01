@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- Generate a random number on click of a button. The button should disappear and appear again after 3 sec. -->
+
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "../js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "../js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "../js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+           class GenerateRandom extends React.Component{
+               constructor(){
+                   super()
+                   this.state = {
+                       number: 0,
+                       isEnabled: true
+                   }
+               }
+
+               handleOnclick = () => {
+                   const randomNumber = Math.round(Math.random() * 100)
+                   this.setState({
+                       number: randomNumber,
+                       isEnabled : false
+                   })
+                   setTimeout(() => {
+                    this.setState({
+                       number: randomNumber,
+                       isEnabled : true
+                   })
+                   }, 3000);
+
+               }
+
+               render(){
+                   return (
+                   this.state.isEnabled ? <button onClick = {this.handleOnclick}> GenerateRandomNumber </button> : <h1> {this.state.number} </h1>
+                   )
+                }
+           }
+
+           ReactDOM.render(<GenerateRandom />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

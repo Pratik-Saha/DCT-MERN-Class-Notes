@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class GenerateRandom extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        number : ''
+                    }
+                }
+
+                handleClick = () => {
+                    let number = Math.round(Math.random() * 100)
+                    this.setState({number})
+                }
+
+                render(){
+                    return (
+                        <div>
+                            <h2>{this.state.number}</h2>
+                            <button onClick = {this.handleClick}>Generate</button>
+                        </div>
+                    )
+                }
+            }
+
+            ReactDOM.render(<GenerateRandom />, rootHandle)
+
+        </script>
+    
+    </body>
+        
+</html>

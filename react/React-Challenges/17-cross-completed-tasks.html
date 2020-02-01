@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "../js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "../js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "../js/babel.js"></script>
+        <!-- https://unpkg.com/axios/dist/axios.js -->
+        <script src = "../js/axios.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class CheckCompletedTask extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        tasks: [
+                            {taskId: 1, taskName: "Clone repository - git clone <repo_url>", isCompleted: false},
+                            {taskId: 2, taskName: "cd services", isCompleted: false},
+                            {taskId: 3, taskName: "git checkout development", isCompleted: false},
+                            {taskId: 4, taskName: "git pull", isCompleted: false},
+                            {taskId: 5, taskName: "Make your changes", isCompleted: false},
+                            {taskId: 6, taskName: "git status", isCompleted: false},
+                            {taskId: 7, taskName: "git add .", isCompleted: false},
+                            {taskId: 8, taskName: "git commit -m <message>", isCompleted: false},
+                            {taskId: 9, taskName: "git push", isCompleted: false},
+                        ]
+                    }
+                }
+
+                handleChange = (taskId) => {
+                    this.setState((prevState) => {
+                        return {
+                            tasks: prevState.tasks.map((task) => {
+                                if(task.taskId == taskId){
+                                    return Object.assign({}, task, {isCompleted: !task.isCompleted})
+                                }
+                                else{
+                                    return Object.assign({}, task)
+                                }
+                            })
+                        }
+                        
+                    })
+                }
+
+                render(){
+                    return (
+                        <div>
+                            <h3>Steps to push code in BitBucket</h3><hr />
+                            <ul>
+                                {
+                                    this.state.tasks.map((task) => {
+                                        return (
+                                            
+                                            <li key = {task.taskId}><input type = "checkbox" checked = {task.isCompleted} onChange = {() => {{this.handleChange(task.taskId)}}} />
+                                            {task.isCompleted ? <del>{task.taskName}</del> : task.taskName}
+                                            </li>
+                                            
+                                        )
+                                             
+                                    })
+                                }
+                            </ul>
+                        </div>
+                    )
+                }
+            }
+            ReactDOM.render(<CheckCompletedTask />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

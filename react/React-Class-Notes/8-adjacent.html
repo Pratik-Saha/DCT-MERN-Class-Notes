@@ -1,0 +1,45 @@
+<!-- React can render only one element at a time
+so if u want to render multiple adjacent elements it will throw an error like adjacent elements must be 
+enclosed inside an enclosing tag
+so, you need to enclose all the adjacent tags inside an div tag
+then the jsx element that you render will have a single element which is that div -->
+
+<!-- when ever you generate multiple react elemennts using loop then you need to specify a 'key'
+property for that elements that will be unique -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            const users = ['john', 'joe', 'smith', 'sarah', 'jack']
+
+            const ele = (
+                <div id = "listing">
+                    <h2>Listing Users - {users.length}</h2>
+                    <ul>
+                        { users.map(function(user, i){
+                            return <li key = {i}> {user.toUpperCase()} </li>
+                        })}
+                    </ul>
+                </div>
+            )
+            ReactDOM.render(ele,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

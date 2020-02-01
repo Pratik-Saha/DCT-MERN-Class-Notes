@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class Login extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        email: '',
+                        password: ''
+                    }
+                }
+
+                handleEmailChange = (e) => {
+                    const email = e.target.value
+                    this.setState({email})
+                }
+
+                handlePasswordChange = (e) => {
+                    const password = e.target.value
+                    this.setState({password})
+                }
+
+                handleSubmit = (e) => {
+                    e.preventDefault()
+                    const formData = {
+                        email: this.state.email,
+                        password: this.state.password
+                    }
+                    console.log(formData)
+                }
+
+                render(){
+                    return (
+                        <div>
+                            <h1>Login with us</h1>
+                            <form onSubmit = {this.handleSubmit}>
+                                <label htmlFor = "email">email</label>
+                                <input type = "text" id = "email" value = {this.state.email} onChange = {this.handleEmailChange} /><br />
+
+                                <label htmlFor = "password">password</label>
+                                <input type = "password" id = "password" value = {this.state.password} onChange = {this.handlePasswordChange} /><br />
+
+                                <input type  = "submit" value = "Login with us"/>
+                            </form>
+                        </div>
+                    )
+                }
+            }
+            ReactDOM.render(<Login />,rootHandle)
+        </script>
+
+    
+    </body>
+        
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <!-- https://unpkg.com/axios/dist/axios.js -->
+        <script src = "./js/axios.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class ListUser extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        users: []
+                    }
+                }
+                handleClick = () => {
+                    axios.get('http://jsonplaceholder.typicode.com/users')
+                    .then((response) => {
+                        const users = response.data
+                        console.log(users)
+                        this.setState({users})
+                    })
+                    .catch((err) => {
+                        alert(err)
+                    })
+                }
+                render(){
+                    return (
+                        <div>
+                            <h1>Listing users - {this.state.users.length}</h1>
+                            <ul>
+                                {
+                                    this.state.users.map((user) => {
+                                        return <li key = {user.id}>{user.id}. {user.name} </li>
+                                    })
+                                }
+                            </ul>
+                            <button onClick = {this.handleClick}>Fetch users</button>
+                        </div>
+                    )
+                }
+            }
+            ReactDOM.render(<ListUser />,rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

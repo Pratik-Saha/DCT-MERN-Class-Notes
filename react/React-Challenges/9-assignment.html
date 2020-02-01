@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "../js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "../js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "../js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+
+            class ShowUser extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {
+                        users: [
+                            {id: 1,name: 'Dhoni'},
+                            {id: 2,name: 'Rohit'},
+                            {id: 3,name: 'Kholi'},
+                            {id: 4,name: 'Mayank'}
+                        ],
+                        selectedUser: ''
+                    }
+                }
+
+                handleChange = (e) => {
+                    const selectedUser = e.target.value
+                    this.setState({selectedUser})
+                }
+
+                getUserById = (id) => {
+                    const user= this.state.users.find((user) => {
+                        return user.id == id
+                    })
+                    return user.name
+                }
+
+                render(){
+                    return (
+                        <div>
+                            <label>Users</label>
+                            <select value = {this.state.selectedUser} onChange = {this.handleChange}>
+                                <option value = "">select</option>
+                                {
+                                    this.state.users.map((user) => {
+                                        return <option key = {user.id} value = {user.id}>{user.name}</option>
+                                    })
+                                }
+                            </select>
+
+                            <h3>
+                                {
+                                    this.state.selectedUser && this.state.selectedUser + ' ' + this.getUserById(this.state.selectedUser)
+                                }
+                            </h3>
+                        </div>
+                    )
+                }
+            }
+
+            ReactDOM.render(<ShowUser />, rootHandle)
+        </script>
+    
+    </body>
+        
+</html>

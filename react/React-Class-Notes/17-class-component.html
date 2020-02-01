@@ -1,0 +1,90 @@
+<!-- function component is used for presentation purpose only. It can not hold or maintain any data or 
+    information within the component.
+    so, to maintain data which is selected by the user inside the component itself react gives another
+    option called class component   -->
+<!-- we can pass data to a function component via props or we can maintain data inside class 
+    component via the state property -->
+<!-- setState() method first update the current state and then it calls the render() method itself
+    setState() method can be used in two ways
+        1. if the current state is dependent on the previous state, then use callback funciion
+        2 else , pass the object only to update the current state -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        
+        <!-- https://unpkg.com/browse/react@16.12.0/umd/react.development.js -->
+        <script src = "./js/react.development.js"></script>
+        <!-- https://www.unpkg.com/browse/react-dom@16.12.0/umd/react-dom.development.js -->
+        <script src = "./js/react-dom.development.js"></script>
+        <!-- https://unpkg.com/babel-standalone@6.26.0/babel.js -->
+        <script src = "./js/babel.js"></script>
+        <script type = "text/babel">
+            const rootHandle = document.getElementById('root')
+            
+            //class component
+            class Count extends React.Component {
+                constructor() {
+                    super()
+                    this.state = {
+                        count : 1
+                    }
+                }
+
+                handleClick = () => {
+                    //this.state.count = this.state.count + 1
+                    this.setState((prevState) => {
+                        return {
+                            count : prevState.count + 1
+                        }
+                    })
+                }
+
+                handleDown = () => {
+
+                    this.setState((prevState) => {
+                            return {
+                                count : prevState.count - 1
+                            }
+                    }) 
+                }
+
+                handleReset = () => {
+                    const ok = window.confirm('Are you Sure?')
+                    if(ok){
+                        this.setState({count : 0})
+                    } 
+                }
+
+                render() {
+                    return (
+                        <div>
+                            <h1>Count Example</h1>
+                            <h1>{this.state.count}</h1>
+                            <button onClick = {this.handleClick}> + </button>
+                            <button onClick = {this.handleDown} disabled = {this.state.count <= 0}> - </button>
+                            <button onClick = {this.handleReset}> Reset </button>
+                        </div>
+                    )
+                }
+            }
+
+            const ele = (
+                <div>
+                    <Count />
+                    
+                </div>
+            )
+            ReactDOM.render(ele,rootHandle)
+
+        </script>
+    
+    </body>
+        
+</html>
