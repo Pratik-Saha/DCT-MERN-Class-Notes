@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+        <!-- <input type="text" />
+        <a href=""></a> -->
+        <script>
+            const rootHandle = document.getElementById('root')
+
+            const inputTag = document.createElement('input')
+            inputTag.setAttribute('type','text')
+            inputTag.setAttribute('placeholder','enter your name')
+
+            inputTag.addEventListener('keyup',function(){
+                console.log(inputTag.value)
+            })
+
+            // inputTag.addEventListener('focus',function(){
+            //     console.log('typed')
+            // })
+
+            // inputTag.addEventListener('blur',function(){
+            //     console.log('typed')
+            // })
+
+            rootHandle.appendChild(inputTag)
+        </script>
+    </body>
+</html>

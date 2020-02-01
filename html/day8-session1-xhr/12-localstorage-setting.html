@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+
+        <script>
+            const rootHandle = document.getElementById('root')
+
+            const username = 'john'
+            const age = 25
+            const fruits = ['apple','mango','kiwi']
+            const bio = {
+                profession : 'developer',
+                company : 'dct',
+                experience : 3
+            }
+            //local stroage can store data only in string format. so to store data like array and object you have to stringfy that as a json object
+            localStorage.setItem('username',username)
+            localStorage.setItem('age',age)
+            localStorage.setItem('fruits',JSON.stringify(fruits))
+            localStorage.setItem('bio',JSON.stringify(bio))
+        </script>
+    </body>
+</html>

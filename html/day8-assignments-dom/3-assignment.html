@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+</head>
+
+<body style="text-align: center;">
+    <div id="root">
+
+    </div>
+
+    <script>
+        const rootHandle = document.getElementById('root')
+
+        const h3Tag = document.createElement('h3')
+        h3Tag.innerHTML = 'Users'
+        rootHandle.appendChild(h3Tag)
+
+        const selectTag = document.createElement('select')
+        selectTag.setAttribute('id', 'select1')
+        rootHandle.appendChild(selectTag)
+
+        const optionTag = document.createElement('option')
+        optionTag.text = 'select'
+        selectTag.appendChild(optionTag)
+
+        const divTag = document.createElement('div')
+        divTag.setAttribute('id', 'base')
+        rootHandle.appendChild(divTag)
+        const baseHandle = document.getElementById('base')
+
+
+        const url = 'http://jsonplaceholder.typicode.com/users'
+
+        const xhr = new XMLHttpRequest()
+        xhr.open('GET', url)
+        xhr.send()
+        xhr.onload = function () {
+            const users = JSON.parse(xhr.responseText)
+            users.forEach(function (user) {
+                const optionTag = document.createElement('option')
+                optionTag.text = user.name
+                selectTag.appendChild(optionTag)
+            })
+        }
+
+
+        selectTag.addEventListener('change', function () {
+            baseHandle.innerHTML = ''
+
+            const h3Tag = document.createElement('h3')
+            h3Tag.innerHTML = 'UserInfo'
+            baseHandle.appendChild(h3Tag)
+
+            const users = JSON.parse(xhr.responseText)
+            console.log(document.getElementById('select1'))
+            const user = users.find(function (user) {
+                return user.name.toLowerCase() == document.getElementById('select1').value.toLowerCase()
+            })
+            console.log(user)
+
+            const pTag = document.createElement('p')
+            pTag.innerHTML = '<b>Name</b> - ' + user.name + '<br>' + '<b>Email</b> - ' + user.email + '<br>' + '<b>City</b> - ' + user.address.city + '<br>' + '<b>company</b> - ' + user.company.name
+            baseHandle.appendChild(pTag)
+        })
+
+    </script>
+</body>
+
+</html>

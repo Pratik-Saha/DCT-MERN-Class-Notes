@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id = "root">
+            <!-- <h1>Hello React</h1> -->
+        </div>
+
+        <script>
+            const rootHandle = document.getElementById('root')
+            const h1Tag = document.createElement('h1') //to create a element or tag
+            h1Tag.innerHTML = 'Hello React' // to set innerText for the tag
+            rootHandle.appendChild(h1Tag) // to append or add a child element or tag
+
+            const pTag = document.createElement('p')
+            pTag.innerHTML = 'MERN STACK'
+            rootHandle.appendChild(pTag)
+        </script>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+
+        <script>
+            const rootHandle = document.getElementById('root')
+
+            const btn = document.createElement('button')
+            btn.innerHTML = 'Enter your name'
+            rootHandle.appendChild(btn)
+
+            btn.addEventListener('click',function(){
+                const name = prompt('enter your name')
+                const h1Tag = document.createElement('h1')
+                h1Tag.innerHTML = 'welcome '+ name
+                rootHandle.appendChild(h1Tag)
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    <div id="root">
+
+    </div>
+
+    <script>
+        const rootHandle = document.getElementById('root')
+
+        const mylocation = document.createElement('button')
+        mylocation.innerHTML = 'Location'
+        rootHandle.appendChild(mylocation)
+
+        mylocation.addEventListener('click', function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            }
+
+        })
+        function showPosition(position) {
+            const h4tag = document.createElement('h4')
+            h4tag.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+            rootHandle.appendChild(h4tag)
+
+            const url = `http://samples.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=07ddf41c8ac05127f1ec9472754586e7`
+
+            const xhr = new XMLHttpRequest()
+            xhr.open('GET', url)
+            xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+            xhr.send()
+            xhr.onload = function () {
+                const response = JSON.parse(xhr.responseText)
+                const h4tag = document.createElement('h4')
+                h4tag.innerHTML = 'temparature - ' + response.main.temp
+                rootHandle.appendChild(h4tag)
+            }
+        }
+    </script>
+</body>
+
+</html>

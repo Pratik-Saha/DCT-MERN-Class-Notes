@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>List Items</title>
+    </head>
+    <body>
+        <div id = "root">
+           
+        </div>
+
+        <script>
+            const rootHandle = document.getElementById('root')
+            const players = ['sachin','shewag','saurav','dhoni','virat','shikar','laxman','dravid','dravid','ashhwin','jadeja']
+
+            const h2Tag = document.createElement('h2')
+            h2Tag.innerHTML = 'Listing players - '+ players.length
+            rootHandle.appendChild(h2Tag)
+
+            const ulTag = document.createElement('ul')
+            rootHandle.appendChild(ulTag)
+
+            players.forEach(function(player){
+                const liTag = document.createElement('li')
+                liTag.innerHTML = player
+                ulTag.appendChild(liTag)
+            })
+            
+        </script>
+    </body>
+</html>

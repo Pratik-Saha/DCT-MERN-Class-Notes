@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+
+        <script>
+            const rootHandle = document.getElementById('root')
+
+            const h1Tag = document.createElement('h1')
+            h1Tag.innerHTML = 0
+            rootHandle.appendChild(h1Tag)
+
+            const upBtn = document.createElement('button')
+            upBtn.innerHTML = '+'
+            rootHandle.appendChild(upBtn)
+
+            upBtn.addEventListener('click',function(){
+                h1Tag.innerHTML = Number(h1Tag.innerHTML) + 1
+            })
+
+            const downBtn = document.createElement('button')
+            downBtn.innerHTML = '-'
+            rootHandle.appendChild(downBtn)
+
+            downBtn.addEventListener('click',function(){
+                h1Tag.innerHTML = Number(h1Tag.innerHTML) - 1
+            })
+
+            const resetBtn = document.createElement('button')
+            resetBtn.innerHTML = 'reset'
+            rootHandle.appendChild(resetBtn)
+
+            resetBtn.addEventListener('click',function(){
+                const status = confirm('Are you sure ?')
+                if(status){
+                    h1Tag.innerHTML = 0
+                }
+            })
+        </script>
+    </body>
+</html>

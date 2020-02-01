@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+
+        <script>
+            const rootHandle = document.getElementById('root')
+
+            const h3Tag = document.createElement('h3')
+            h3Tag.innerHTML = 'Listing Tasks'
+            rootHandle.appendChild(h3Tag)
+
+            const ulTag = document.createElement('ul')
+            rootHandle.appendChild(ulTag)
+
+            const btn = document.createElement('button')
+            btn.innerHTML = 'ADD'
+            rootHandle.appendChild(btn)
+
+            let arr = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
+
+            localStorage.setItem('items',JSON.stringify(arr))
+
+            btn.addEventListener('click',function(){
+                const task = prompt('Enter your task')
+                const liTag = document.createElement('li')
+                liTag.innerHTML = task
+                ulTag.appendChild(liTag)
+                arr.push(liTag.innerHTML)
+                localStorage.setItem('items', JSON.stringify(arr))
+            })
+
+            arr.forEach(function(item){
+                const liTag = document.createElement('li')
+                liTag.textContent = item
+                ulTag.appendChild(liTag)
+                })
+        </script>
+    </body>
+</html>

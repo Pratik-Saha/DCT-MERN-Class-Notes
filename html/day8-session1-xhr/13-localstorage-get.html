@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+
+        <script>
+            const rootHandle = document.getElementById('root')
+
+            const username = localStorage.getItem('username')
+            console.log(username)
+
+            const fruits = JSON.parse(localStorage.getItem('fruits'))
+            console.log(fruits)
+
+            const bio = JSON.parse(localStorage.getItem('bio'))
+            console.log(bio)
+        </script>
+    </body>
+</html>

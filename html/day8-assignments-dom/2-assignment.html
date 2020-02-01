@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+
+        <script>
+            const rootHandle = document.getElementById('root')
+
+            const h3Tag = document.createElement('h3')
+            h3Tag.innerHTML = 'Users'
+            rootHandle.appendChild(h3Tag)
+
+            const selectTag = document.createElement('select')
+            rootHandle.appendChild(selectTag)
+
+            const url = 'http://jsonplaceholder.typicode.com/users'
+
+            const xhr =  new XMLHttpRequest()
+            xhr.open('GET',url)
+            xhr.send()
+            xhr.onload = function(){
+                const users = JSON.parse(xhr.responseText)
+                users.forEach(function(user){
+                    const optionTag = document.createElement('option')
+                    optionTag.text = user.name
+                    selectTag.appendChild(optionTag)
+                })
+            }
+
+            const optionTag = document.createElement('option')
+            optionTag.text = 'select'
+            selectTag.appendChild(optionTag)
+
+        </script>
+    </body>
+</html>

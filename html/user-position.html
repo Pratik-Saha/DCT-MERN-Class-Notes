@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+
+        <script>
+            const rootHandle = document.getElementById('root')
+
+            const mylocation = document.createElement('button')
+            mylocation.innerHTML = 'get location'
+            rootHandle.appendChild(mylocation)
+
+            mylocation.addEventListener('click',function(){
+                if(navigator.geolocation){
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                }
+
+            })
+            function showPosition(position) {
+                const x = document.createElement('h3')
+                x.innerHTML = "Latitude: " + position.coords.latitude +"<br>Longitude: " + position.coords.longitude;
+                rootHandle.appendChild(x)
+            }
+            
+        </script>
+    </body>
+</html>

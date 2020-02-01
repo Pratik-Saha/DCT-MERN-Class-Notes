@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+
+        <script>
+            const rootHandle = document.getElementById('root')
+
+            const labelTag = document.createElement('label')
+            labelTag.innerHTML = 'search'
+            rootHandle.appendChild(labelTag)
+
+            const inputTag = document.createElement('input')
+            inputTag.setAttribute('type','text')
+            rootHandle.appendChild(inputTag)
+
+            const h3Tag = document.createElement('h3')
+            h3Tag.innerHTML = 'Listing Users'
+            rootHandle.appendChild(h3Tag)
+
+            const ulTag = document.createElement('ul')
+            rootHandle.appendChild(ulTag)
+
+            const url = 'http://jsonplaceholder.typicode.com/users'
+
+            const xhr = new XMLHttpRequest()
+            xhr.open('GET',url)
+            xhr.send()
+            xhr.onload = function(){
+                const users = JSON.parse(xhr.responseText)
+                users.forEach(function(user){
+                    const liTag = document.createElement('li')
+                    liTag.innerHTML = user.name
+                    ulTag.appendChild(liTag)
+                })
+            }
+
+            inputTag.addEventListener('keyup',function(){
+                    ulTag.innerHTML = ''
+                    const users = JSON.parse(xhr.responseText)
+                    const sortedUser = users.filter(function(user){
+                    return user.name.toLowerCase().includes(inputTag.value.toLowerCase())
+                })
+                sortedUser.forEach(function(user){
+                    const liTag = document.createElement('li')
+                    liTag.innerHTML = user.name
+                    ulTag.appendChild(liTag)
+                })
+            })
+
+        </script>
+    </body>
+</html>

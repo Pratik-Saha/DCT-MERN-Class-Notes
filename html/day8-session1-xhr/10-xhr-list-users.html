@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+
+        <script>
+            const rootHandle = document.getElementById('root')
+
+            const h3Tag = document.createElement('h3')
+            h3Tag.innerHTML = 'Listing users - '
+            rootHandle.appendChild(h3Tag)
+        
+            const ulTag = document.createElement('ul')
+            rootHandle.appendChild(ulTag)
+
+            //http mthods(http verbs)
+            //POST - create - submitting a form
+            //GET- read - page reloads, clicking of links
+            //PUT - update - form
+            //DELETE - destroy - link or forms
+
+            const url = 'http://jsonplaceholder.typicode.com/users'
+
+            const xhr = new XMLHttpRequest()
+            xhr.open('GET',url) //configuring request
+            xhr.send() //sending request
+            //any network operaton is time consuming. so due to the async nature of javascript it will go on to execute the next set of code without waiting for the response to come.so we create callback function to execute as soon as the respose comes from the server
+            xhr.onload = function(){ 
+                //data comes as a json - typeof json is string
+                const users = JSON.parse(xhr.responseText)
+                
+                users.forEach(function(user){
+                    const liTag = document.createElement('li')
+                    liTag.innerHTML = user.name
+                    ulTag.appendChild(liTag)
+                })
+            }
+        </script>
+    </body>
+</html>

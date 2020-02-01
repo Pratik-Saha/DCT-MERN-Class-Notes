@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>button - event handlers</title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+
+        <script>
+            const rootHandle = document.getElementById('root')
+
+            const btn = document.createElement('button')
+            btn.innerHTML = 'click me'
+
+            //add event handler or event listener - we dont create events - events are already created- we create event listener for our events - i.e what action should i do if that particular event occurs 
+            // addEventListener - takes two argumets - event name and callback functiion (event - click,mouseover)
+            btn.addEventListener('click',function(){
+                alert('you clicked the button')
+            })
+
+            rootHandle.appendChild(btn)
+        </script>
+    </body>
+</html>

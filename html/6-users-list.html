@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+
+        <script>
+            const rootHandle = document.getElementById('root')
+
+            const users = [
+                {id: 1,name: 'john',email: 'john@gmail.com'},
+                {id: 2,name: 'doe',email: 'doe@gmail.com'},
+                {id: 3,name: 'smith',email: 'smith@gmail.com'}
+            ]
+
+            const h1Tag = document.createElement('h1')
+            h1Tag.innerHTML = '<em> Listing users <em> -'+users.length
+            rootHandle.appendChild(h1Tag)
+
+            const ulTag = document.createElement('ul')
+            rootHandle.appendChild(ulTag)
+
+            users.forEach(function(user){
+                const liTag = document.createElement('li')
+                liTag.innerHTML = user.name
+                ulTag.appendChild(liTag)
+
+                const showBtn = document.createElement('button')
+                showBtn.innerHTML = 'show'
+                liTag.appendChild(showBtn)
+
+                showBtn.addEventListener('click',function(){
+                    alert(`${user.name} - ${user.email}`)
+                })
+            })
+        </script>
+    </body>
+</html>

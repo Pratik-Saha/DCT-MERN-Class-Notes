@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id = "root">
+
+        </div>
+
+        <script>
+            const rootHandle = document.getElementById('root')
+
+            const h3Tag = document.createElement('h3')
+            h3Tag.innerHTML = 'LOGIN'
+            rootHandle.appendChild(h3Tag)
+
+            const userNameInputTag = document.createElement('input')
+            userNameInputTag.setAttribute('type','text')
+            userNameInputTag.setAttribute('placeholder','username')
+            rootHandle.appendChild(userNameInputTag)
+
+            const brTag = document.createElement('br')
+            rootHandle.appendChild(brTag)
+
+            const passwordInputTag = document.createElement('input')
+            passwordInputTag.setAttribute('type','password')
+            passwordInputTag.setAttribute('placeholder','password')
+            rootHandle.appendChild(passwordInputTag)
+
+            // const brTag2 = document.createElement('br')
+            // rootHandle.appendChild(brTag2)
+
+            const anchorTag = document.createElement('a')
+            anchorTag.setAttribute('href','#')
+            anchorTag.innerHTML = 'show'
+            rootHandle.appendChild(anchorTag)
+
+            const brTag3 = document.createElement('br')
+            rootHandle.appendChild(brTag3)
+
+
+            anchorTag.addEventListener('mouseover',function(){
+                passwordInputTag.setAttribute('type','text')
+            })
+
+            anchorTag.addEventListener('mouseout',function(){
+                passwordInputTag.setAttribute('type','password')
+            })
+
+            const btn = document.createElement('button')
+            btn.innerHTML = 'Login'
+            rootHandle.appendChild(btn)
+        </script>
+    </body>
+</html>

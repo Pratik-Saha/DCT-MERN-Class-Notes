@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body style="text-align: center;">
+        <div id = "root">
+
+        </div>
+
+        <script>
+            const rootHandle = document.getElementById('root')
+
+            const h3Tag = document.createElement('h3')
+            h3Tag.innerHTML = 'currency converter'
+            rootHandle.appendChild(h3Tag)
+
+            const url = 'http://apilayer.net/api/live?access_key=64cd91f98cf46f8c9ef2c1491cd4cc7b&currencies=INR&format=1'
+
+            const xhr = new XMLHttpRequest()
+            xhr.open('GET',url)
+            xhr.send()
+            xhr.onload = function(){
+                const response = JSON.parse(xhr.responseText)
+                const h4Tag = document.createElement('h4')
+                h4Tag.innerHTML = '1 USD = '+ response.quotes.USDINR
+                rootHandle.appendChild(h4Tag)
+
+                const slider = document.createElement('input')
+                slider.setAttribute('id','slider1')
+                slider.setAttribute('type','range')
+                slider.setAttribute('min',0)
+                slider.setAttribute('max',100)
+                slider.setAttribute('step',5)
+                slider.setAttribute('value',20)
+                rootHandle.appendChild(slider)
+
+                const divTag = document.createElement('div')
+                divTag.setAttribute('id','base')
+                rootHandle.appendChild(divTag)
+                
+                const baseHandle = document.getElementById('base')
+
+                slider.addEventListener('change',function(){
+                    baseHandle.innerHTML = ''
+                    const pTag = document.createElement('p')
+                    //console.log(document.getElementById('slider1').value)
+                    pTag.innerHTML = document.getElementById('slider1').value * response.quotes.USDINR
+                    baseHandle.appendChild(pTag)
+                })
+            }
+
+            
+        </script>
+    </body>
+</html>
