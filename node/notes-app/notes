@@ -1,0 +1,24 @@
+A. To keep mongodb server up and running  go to this location in cmd and type 'mongod'
+    C:\Program Files\MongoDB\Server\4.2\bin
+
+1. npm init
+2. npm install express
+3. create index.js and setup server using express
+4. establist database connection
+    a - npm install mongoose
+    b - const mongoose = require('mongoose')
+    c - DB configuraton for connection using connect() method
+5. create note schema
+6. create note model
+
+7. ODM - 
+    a. map a model to a collection and vice versa
+    b. map a object to a document and vice versa
+    c. map a property to a document's field and vice versa
+
+8. validations works only on instance method like save() that is when saving the database
+   it does not work on static method like findByIdAndUpdate(), so to make it work on static method we need to 
+   pass a property in option object like this { runValidators: true }
+
+9. population - is a process of replacing the specified path of the document with the document from other
+                collection. It is only used when to find a document(s)
