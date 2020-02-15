@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const Schema = mongoose.Schema
+//const Schema = mongoose.Schema
 
 /*creating schema - blueprint that defines the fields that each of your document should have
 it also helps to define validations at application level not at databse level */

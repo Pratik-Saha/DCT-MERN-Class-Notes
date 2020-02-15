@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 
 const setupDB = require('./config/database')
 const routes = require('./config/routes')
@@ -7,6 +8,7 @@ const app = express()
 const PORT = 3033
 
 app.use(express.json())
+app.use(cors())
 
 //connect to DB
 setupDB()
