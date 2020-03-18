@@ -6,7 +6,7 @@ const postsReducer = (state = postsinitialState, action) => {
             return [...action.payload]
         }
         default: {
-            return [...postsinitialState]
+            return [...state]
         }
     }
 }

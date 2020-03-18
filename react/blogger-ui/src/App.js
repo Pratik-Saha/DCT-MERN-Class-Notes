@@ -11,17 +11,28 @@ function App(props){
     return(
         <BrowserRouter>
             <div>
-            <h1>Welcome to Blogger</h1>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <Link className="navbar-brand">Blogger-UI</Link>
+                    <ul className="nav justify-content-end">
+                        <li className="nav-item">
+                            <Link className="nav-link" to = "/home">Home</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to = "/users">Users</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to = "/posts">Posts</Link>
+                        </li>
+                    </ul> 
+                </nav>
 
-            <Link to = "/home">Home</Link> |                  
-            <Link to = "/users">Users</Link> |
-            <Link to = "/posts">Posts</Link> |
-
-            <Route path = "/home" component = {Home} />
-            <Route path = "/users" component = {Users}  exact = {true}/>
-            <Route path = "/users/:id" component = {ShowUserPage} />
-            <Route path ="/posts" component = {ShowPostPage} exact = {true} />
-            <Route path = "/posts/:postId" component = {ShowUserPost} />
+                <div className="container">
+                    <Route path = "/home" component = {Home} />
+                    <Route path = "/users" component = {Users}  exact = {true}/>
+                    <Route path = "/users/:id" component = {ShowUserPage} />
+                    <Route path ="/posts" component = {ShowPostPage} exact = {true} />
+                    <Route path = "/posts/:id" component = {ShowUserPost} />
+                </div>
             
             </div>
         </BrowserRouter>

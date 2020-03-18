@@ -3,22 +3,23 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { startGetPosts } from '../../action/post'
-function ShowPostPage(props){
 
+function ShowPostPage(props){
     if(props.posts.length == 0){
         props.dispatch(startGetPosts())
     }
     return(
-        <div>
-            <h1>TOTAL USER POSTS - {props.posts.length}</h1>
-            <ul>
-                {
-                    props.posts.map((post) => {
-                        return <li key = {post.id}><Link to = {`/posts/${post.id}`}>{post.title}</Link></li>
-                    })
-                }
-            </ul>
-            
+        <div className="row">
+            <div className="col-md-7 offset-md-3">
+                <h2>TOTAL USER POSTS - {props.posts.length}</h2>
+                <ul className="list-group">
+                    {
+                        props.posts.map((post) => {
+                            return <li key = {post.id} className="list-group-item"><Link to = {`/posts/${post.id}`}>{post.title}</Link></li>
+                        })
+                    }
+                </ul> 
+            </div>
         </div>
     )
 }

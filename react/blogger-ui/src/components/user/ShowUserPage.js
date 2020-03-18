@@ -4,31 +4,32 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { findUserById } from '../../selectors/user'
-import { startGetPostsForUser, resetUserPosts } from '../../action/user'
+import { findPostsByUserId } from '../../selectors/Post'
+import { startGetPosts } from '../../action/post'
 
 class ShowUserPage extends React.Component{
-    componentWillUnmount(){
-        console.log('component unmounted')
-        this.props.dispatch(resetUserPosts())
-    }
-
     render(){
         if(this.props.userPosts.length == 0){
             const id = this.props.match.params.id
-            this.props.dispatch(startGetPostsForUser(id))
+            this.props.dispatch(startGetPosts(id))
         }
         return(
-            <div>
-                <h2>USER NAME : {this.props.user.name}</h2>
-                <h2>POSTS WRITTEN BY USER</h2>
-                <ul>
-                    {
-                        this.props.userPosts.map((post) => {
-                            return <li key = {post.id}><Link to = {`/posts/${post.id}`}>{post.title}</Link></li>
-                        })
-                    }
-                </ul>
-                
+            <div className="row">
+                <div className="col-md-7 offset-md-3">
+                    <div className="card">
+                        <div className="card-header">
+                            <h3>USER NAME : {this.props.user.name}</h3>
+                            <h4>POSTS WRITTEN BY USER</h4>
+                        </div>
+                        <ul className="list-group list-group-flush">
+                            {
+                                this.props.userPosts.map((post) => {
+                                    return <li key = {post.id} className="list-group-item"><Link to = {`/posts/${post.id}`}>{post.title}</Link></li>
+                                })
+                            }
+                        </ul>
+                    </div>
+                </div>
             </div>
         )
     }
@@ -38,7 +39,7 @@ const mapStateToProps = (state, props) => {
     const id = props.match.params.id
     return {
         user: findUserById(state.users, id),
-        userPosts: state.userPosts
+        userPosts: findPostsByUserId(state.posts, id)
     }
 }
 

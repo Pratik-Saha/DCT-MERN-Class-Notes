@@ -13,21 +13,3 @@ export const startGetUsers = () => {
             })
     }
 }
-
-export const setUserPosts = (posts) => {
-    return { type: 'SET_USER_POSTS', payload: posts }
-}
-
-export const startGetPostsForUser = (id) => {
-    return (dispatch) => {
-        axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
-            .then((response) => {
-                const posts = response.data
-                dispatch(setUserPosts(posts))
-            })
-    }
-}
-
-export const resetUserPosts = () => {
-    return { type: 'RESET_USER_POSTS' }
-}

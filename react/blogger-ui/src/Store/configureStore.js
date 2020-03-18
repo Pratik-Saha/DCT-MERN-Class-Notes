@@ -3,14 +3,13 @@ import thunk from 'redux-thunk'
 
 import usersReducer from '../reducers/user'
 import postsReducer from '../reducers/post'
-import userPostsReducer from '../reducers/userPosts'
-
+import postCommentsReducer from '../reducers/comments'
 
 const configureStore = () => {
     const store = createStore(combineReducers({
         users: usersReducer,
-        userPosts: userPostsReducer,
-        posts: postsReducer
+        posts: postsReducer,
+        postComments: postCommentsReducer
     }), applyMiddleware(thunk))
 
     return store
